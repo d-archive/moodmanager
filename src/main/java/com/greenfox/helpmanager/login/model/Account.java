@@ -9,6 +9,7 @@ public class Account {
   @Id
   String username;
   String hash;
+  String token;
 
   public Account() {
   }
@@ -16,6 +17,20 @@ public class Account {
   public Account(String username, String hash) {
     this.username = username;
     this.hash = hash;
+  }
+
+  public Account(String username, String hash, String token) {
+    this.username = username;
+    this.hash = hash;
+    this.token = token;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
   public String getHash() {

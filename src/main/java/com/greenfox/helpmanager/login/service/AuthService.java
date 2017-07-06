@@ -15,6 +15,12 @@ public class AuthService {
   @Autowired
   AccountRepository accountRepository;
 
+  public void giveToken(String username, String token) {
+    Account account = accountRepository.findAccountByUsername(username);
+    account.setToken(token);
+    accountRepository.save(account);
+  }
+
   public void authenticate(String username, String password) throws Exception {
     Account account;
     if (!checkAccount(username)) {
