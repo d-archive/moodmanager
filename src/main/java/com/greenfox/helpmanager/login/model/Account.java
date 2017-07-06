@@ -26,6 +26,7 @@ public class Account {
   public Account(String username, String hash) {
     this.username = username;
     this.hash = hash;
+    this.status = "none";
   }
 
   public Account(String username, String hash, String token) {

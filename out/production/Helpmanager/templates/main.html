@@ -30,8 +30,8 @@
             <div id="toolbar-admin" class="panel-body">
               <div class="btn-toolbar" role="toolbar" aria-label="admin">
                 <div class="btn-group pull-right" role="group">
-                  <button id="btn-online" class="btn btn-success">Online</button>
-                  <button id="btn-out-of-order" class="btn btn-danger">Out Of Order</button>
+                  <button id="btn-online" class="btn btn-success">Start</button>
+                  <button id="btn-out-of-order" class="btn btn-danger">End</button>
                 </div>
               </div>
             </div>
@@ -44,8 +44,10 @@
               </thead>
               <tbody>
               <tr class="success" th:each="account : ${accounts}">
-                <td th:text="${account.start}">19:18</td>
-                <td th:text="${account.username}">dombo3</td>
+                <div th:if="${!(account.status.equals('none'))}">
+                  <td th:text="${account.start}">19:18</td>
+                  <td th:text="${account.username}">dombo3</td>
+                </div>
               </tr>
               </tbody>
             </table>
@@ -68,7 +70,9 @@
                     <h1 class="panel-title">Students's List</h1>
                   </div>
                   <div class="col col-xs-2 text-right ">
-                    <button type="button" class="btn  btn-success "> NEED HELP<i class="fa fa-plus-square" ></i></button>
+                    <form th:action="@{/help/{token}/{username}(token=${singleaccount.token},username=${singleaccount.username})}" method="post">
+                      <button type="submit" class="btn  btn-success "> NEED HELP<i class="fa fa-plus-square" ></i></button>
+                    </form>
                   </div>
                 </div>
               </div>

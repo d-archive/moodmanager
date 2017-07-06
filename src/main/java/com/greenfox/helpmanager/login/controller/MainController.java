@@ -23,8 +23,12 @@ public class MainController {
 
   @GetMapping("/main/{token}/{username}")
   public String getMain(@PathVariable String token, @PathVariable String username, Model model) throws Exception {
+//    System.out.println(accountRepository.findAccountByUsername(username).getStatus());
+    System.out.println(accountRepository.findAccountByUsername(username).getName());
+    System.out.println(accountRepository.findAccountByUsername(username));
     try {
       if (jwtService.isValid(username, token)) {
+        model.addAttribute("singleaccount", accountRepository.findAccountByUsername(username));
         model.addAttribute("accounts", accountRepository.findAll());
         return "main";
       } else {
