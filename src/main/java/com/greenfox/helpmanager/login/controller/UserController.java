@@ -47,7 +47,7 @@ public class UserController {
       return "register";
     } else {
       String pw_hashed = authService.hashPassword(password);
-      accountRepository.save(new Account(username, pw_hashed));
+      accountRepository.save(new Account(username, pw_hashed, "https://github.com/" + username + ".png?size=50"));
       return "redirect:/login";
     }
   }

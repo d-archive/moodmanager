@@ -1,7 +1,6 @@
 package com.greenfox.helpmanager.login.controller;
 
 import com.greenfox.helpmanager.login.repository.AccountRepository;
-import com.greenfox.helpmanager.login.service.AuthService;
 import com.greenfox.helpmanager.login.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,6 @@ public class MainController {
   public String getMain(@PathVariable String token, @PathVariable String username, Model model) throws Exception {
     try {
       if (jwtService.isValid(username, token)) {
-        System.out.println(username);
         model.addAttribute("singleaccount", accountRepository.findAccountByUsername(username));
         model.addAttribute("accounts", accountRepository.findAll());
         return "main";

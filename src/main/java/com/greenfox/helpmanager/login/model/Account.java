@@ -13,8 +13,8 @@ public class Account {
   String token;
   String photo;
   String name;
-  String mood;
-  String status;
+  String mood = "normal";
+  String status = "none";
   Date start;
   Date stop;
   Date request;
@@ -26,13 +26,12 @@ public class Account {
   public Account(String username, String hash) {
     this.username = username;
     this.hash = hash;
-    this.status = "none";
   }
 
-  public Account(String username, String hash, String token) {
+  public Account(String username, String hash, String photo) {
     this.username = username;
     this.hash = hash;
-    this.token = token;
+    this.photo = photo;
   }
 
   public String getUsername() {

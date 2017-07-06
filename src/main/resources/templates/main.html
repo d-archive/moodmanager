@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css"/>
   <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
-  <link rel="stylesheet" href="main.css" type="text/css"/>
+  <link rel="stylesheet" href="pretty.css"/>
   <title>HelpManager</title>
 </head>
 <body>
-<p>Make me pretty</p>
+<p class="prettyke">make me pretty</p>
 <div class="container">
   <div class="row">
     <div class="col">
@@ -23,7 +23,9 @@
               <h3>I need help
                 <div class="pull-right">
                   <!--<button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</button>-->
-                  <button type="submit" id="btn-offline" class="btn btn-warning">Panic!</button>
+                  <form th:action="@{/panic}">
+                    <button type="submit" id="btn-offline" class="btn btn-warning">Panic!</button>
+                  </form>
                 </div>
               </h3>
             </div>
@@ -49,7 +51,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr class="success" th:each="account : ${accounts}">
+              <tr class="danger" th:each="account : ${accounts}">
                 <div th:if="${!(account.status.equals('none'))}">
                   <td th:text="${account.start}">19:18</td>
                   <td th:text="${account.username}">dombo3</td>
@@ -69,8 +71,19 @@
               <div class="panel-heading " style="padding:5px;">
                 <div class="row">
                   <div class="col col-xs-3 text-left">
-                    <a href="#list" class="btn btn-default" aria-controls="list" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i>table</a>
-                    <a href="#thumb" class="btn btn-default" aria-controls="thumb" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i>card</a>
+                    <!--<a href="#list" class="btn btn-default" aria-controls="list" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i>Mood</a>-->
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        Mood <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a th:href="@{/mood/{token}/{username}/angry(token=${singleaccount.token},username=${singleaccount.username})}">Angry</a></li>
+                        <li><a th:href="@{/mood/{token}/{username}/sad(token=${singleaccount.token},username=${singleaccount.username})}">Sad</a></li>
+                        <li><a th:href="@{/mood/{token}/{username}/normal(token=${singleaccount.token},username=${singleaccount.username})}">Normal</a></li>
+                        <li><a th:href="@{/mood/{token}/{username}/happy(token=${singleaccount.token},username=${singleaccount.username})}">Happy</a></li>
+                      </ul>
+                    </div>
+                    <!--<a href="#thumb" class="btn btn-default" aria-controls="thumb" role="tab" data-toggle="tab"><i class="fa fa-picture-o" aria-hidden="true"></i>card</a>-->
                   </div>
                   <div class="col col-xs-5 text-center">
                     <h1 class="panel-title">Students's List</h1>
@@ -95,11 +108,11 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr class="ok" th:each="account : ${accounts}">
-                        <td class="avatar"><img src="/"/></td>
-                        <td th:text="${account.name}">Dombovari Peter</td>
-                        <td th:text="${account.username}">dombo3</td>
-                        <td th:text="${account.count}">0</td>
+                      <tr th:each="account : ${accounts}">
+                          <td class="avatar"><img th:src="${account.photo}"/></td>
+                          <td th:text="${account.name}">Dombovari Peter</td>
+                          <td th:text="${account.username}">dombo3</td>
+                          <td th:text="${account.count}">0</td>
                       </tr>
                       </tbody>
                     </table>
@@ -113,5 +126,7 @@
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
