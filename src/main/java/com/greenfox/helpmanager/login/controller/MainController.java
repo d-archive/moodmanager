@@ -1,5 +1,6 @@
 package com.greenfox.helpmanager.login.controller;
 
+import com.greenfox.helpmanager.login.repository.AccountRepository;
 import com.greenfox.helpmanager.login.service.AuthService;
 import com.greenfox.helpmanager.login.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class MainController {
 
-  @Autowired JwtService jwtService;
+  private JwtService jwtService;
+  private AccountRepository accountRepository;
+
+  @Autowired
+  public MainController(JwtService jwtService, AccountRepository accountRepository) {
+    this.jwtService = jwtService;
+    this.accountRepository = accountRepository;
+  }
 
   @GetMapping("/main/{token}/{username}")
   public String getMain(@PathVariable String token, @PathVariable String username, Model model) throws Exception {
     try {
       if (jwtService.isValid(username, token)) {
-        model.addAttribute(username);
+        model.addAttribute(accountRepository.findAll());
         return "main";
       } else {
         return "redirect:/login";
