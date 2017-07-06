@@ -81,13 +81,15 @@
                         <th class="avatar">photo</th>
                         <th>name</th>
                         <th>username</th>
+                        <th>count</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr class="ok" th:each="account : ${accounts}">
-                        <td class="avatar"><img src=${account.photo}/></td>
+                        <td class="avatar"><img src="/"/></td>
                         <td th:text="${account.name}">Dombovari Peter</td>
                         <td th:text="${account.username}">dombo3</td>
+                        <td th:text="${account.count}">0</td>
                       </tr>
                       </tbody>
                     </table>

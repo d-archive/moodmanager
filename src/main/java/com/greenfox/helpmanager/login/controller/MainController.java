@@ -25,7 +25,7 @@ public class MainController {
   public String getMain(@PathVariable String token, @PathVariable String username, Model model) throws Exception {
     try {
       if (jwtService.isValid(username, token)) {
-        model.addAttribute(accountRepository.findAll());
+        model.addAttribute("accounts", accountRepository.findAll());
         return "main";
       } else {
         return "redirect:/login";
