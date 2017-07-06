@@ -23,15 +23,21 @@
               <h3>I need help
                 <div class="pull-right">
                   <!--<button id="btn-admin" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</button>-->
-                  <button id="btn-offline" class="btn btn-warning">Panic!</button>
+                  <button type="submit" id="btn-offline" class="btn btn-warning">Panic!</button>
                 </div>
               </h3>
             </div>
             <div id="toolbar-admin" class="panel-body">
               <div class="btn-toolbar" role="toolbar" aria-label="admin">
                 <div class="btn-group pull-right" role="group">
-                  <button id="btn-online" class="btn btn-success">Start</button>
-                  <button id="btn-out-of-order" class="btn btn-danger">End</button>
+                  <form th:action="@{/start/{token}/{username}(token=${singleaccount.token},username=${singleaccount.username})}" method="post">
+                    <button type="submit" id="btn-online" class="btn btn-success">Start</button>
+                  </form>
+                </div>
+                <div class="btn-group pull-right" role="group">
+                  <form th:action="@{/end/{token}/{username}(token=${singleaccount.token},username=${singleaccount.username})}" method="post">
+                    <button type="submit" id="btn-out-of-order" class="btn btn-danger">End</button>
+                  </form>
                 </div>
               </div>
             </div>
