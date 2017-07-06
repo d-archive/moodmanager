@@ -2,11 +2,12 @@ package com.greenfox.helpmanager.login.controller;
 
 import com.greenfox.helpmanager.login.exception.InvalidPasswordException;
 import com.greenfox.helpmanager.login.exception.NoSuchAccountException;
+import com.greenfox.helpmanager.login.model.Account;
+import com.greenfox.helpmanager.login.repository.AccountRepository;
 import com.greenfox.helpmanager.login.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
   AuthService authService;
+  AccountRepository accountRepository;
 
   @Autowired
-  public UserController(AuthService authService) {
+  public UserController(AuthService authService, AccountRepository accountRepository) {
     this.authService = authService;
+    this.accountRepository = accountRepository;
   }
 
   @PostMapping(value = "/login")
@@ -32,8 +35,25 @@ public class UserController {
     }
   }
 
+  @PostMapping(value = "/register")
+  public String register(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
+    if (authService.isRegisteredUser(username)) {
+      return "register";
+    } else {
+      String pw_hashed = authService.hashPassword(password);
+      accountRepository.save(new Account(username, pw_hashed));
+      return "redirect:/login";
+    }
+  }
+
   @GetMapping(value = {"/login","/", ""})
-  public String login () {
+  public String login() {
     return "login";
   }
+
+  @GetMapping(value = {"/register"})
+  public String register() {
+    return "register";
+  }
+
 }
