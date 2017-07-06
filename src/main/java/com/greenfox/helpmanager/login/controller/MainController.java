@@ -14,11 +14,15 @@ public class MainController {
   @Autowired JwtService jwtService;
 
   @GetMapping("/main/{token}/{username}")
-  public String getMain(@PathVariable String token, @PathVariable String username, Model model) {
-    if (jwtService.isValid(username, token)) {
-      model.addAttribute(username);
-      return "main";
-    } else {
+  public String getMain(@PathVariable String token, @PathVariable String username, Model model) throws Exception {
+    try {
+      if (jwtService.isValid(username, token)) {
+        model.addAttribute(username);
+        return "main";
+      } else {
+        return "redirect:/login";
+      }
+    } catch (Exception e) {
       return "redirect:/login";
     }
   }

@@ -37,10 +37,10 @@ public class JwtService {
     return builder.compact();
   }
 
-  public boolean isValid(String username, String token) {
+  public boolean isValid(String username, String token) throws Exception {
     Claims claims =
         Jwts.parser()
-            .setSigningKey(DatatypeConverter.parseBase64Binary("1111power"))
+            .setSigningKey("1111power".getBytes("UTF-8"))
             .parseClaimsJws(token)
             .getBody();
     long nowMillis = System.currentTimeMillis();
